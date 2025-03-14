@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    $(if refresh-timeout)
+    <meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+    $(endif)
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <title>Külalise - Andmed</title>
+   <!--  <link rel="stylesheet" href="css/style.css"> -->
+    <script>
+        $(if advert-pending == 'yes')
+        var popup = '';
+        function focusAdvert() {
+            if (window.focus) popup.focus();
+        }
+        function openAdvert() {
+            popup = open('$(link-advert)', 'hotspot_advert', '');
+            setTimeout("focusAdvert()", 1000);
+        }
+        $(endif)
+
+        function openLogout() {
+            if (window.name !== 'hotspot_status') return true;
+            open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubar=0,resizable=1,width=280,height=250');
+            window.close();
+            return false;
+        }
+    </script>
+</head>
+<body $(if advert-pending == 'yes') onLoad="openAdvert()" $(endif)>
+    <div class="container">
+        <div class="content">
+            <div class="header">
+                <img src="img/logo.svg" alt="Logo" class="logo">
+                $(if login-by == 'trial')
+                    <h1>Tere, proovi kasutaja!</h1>
+                $(elif login-by != 'mac')
+                    <h1>Tere, PRO kasutaja, $(username)!</h1>
+                $(endif)
+            </div>
+            <form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+                <table>
+                    <tr><td>Sinu IP aadress:</td><td>$(ip)</td></tr>
+                    <tr><td>Üleslaadimine / Allalaadimine:</td><td>$(bytes-in-nice) / $(bytes-out-nice)</td></tr>
+                    $(if session-time-left)
+                        <tr><td>Aega kulutatud / Aega jäänud:</td><td>$(uptime) / $(session-time-left)</td></tr>
+                    $(else)
+                        <tr><td>Ühendatud:</td><td>$(uptime)</td></tr>
+                    $(endif)
+                    $(if blocked == 'yes')
+                        <tr><td>Olek:</td><td><a href="$(link-advert)" target="hotspot_advert">Vaata reklaami</a></td></tr>
+                    $(elif refresh-timeout)
+                        <tr><td>Värskendus:</td><td>$(refresh-timeout)</td></tr>
+                    $(endif)
+                </table>
+                $(if login-by-mac != 'yes')
+                    <input type="submit" value="Logi Välja">
+                    <button type="button" onclick="window.location.href='https://google.com';">Edasi</button>
+                $(endif)
+            </form>
+        </div>
+    </div>
+</body>
+<style>
+    /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Content Box */
+.content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px;
+}
+
+/* Header */
+.header {
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 10px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+td {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Buttons */
+input[type="submit"], button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background: #d9534f;
+    color: white;
+}
+
+button {
+    background: #0275d8;
+    color: white;
+}
+
+input[type="submit"]:hover {
+    background: #c9302c;
+}
+
+button:hover {
+    background: #025aa5;
+}
+
+</style>
+</html>

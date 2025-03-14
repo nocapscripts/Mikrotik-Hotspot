@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="et">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interneti leviala – Logi sisse</title>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+
+    $(if chap-id)
+    <form name="sendin" action="$(link-login-only)" method="post" style="display:none">
+        <input type="hidden" name="username">
+        <input type="hidden" name="password">
+        <input type="hidden" name="dst" value="$(link-orig)">
+        <input type="hidden" name="popup" value="true">
+    </form>
+
+    <script src="/md5.js"></script>
+    <script>
+        function doLogin() {
+            document.sendin.username.value = document.login.username.value;
+            document.sendin.password.value = hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+            document.sendin.submit();
+            return false;
+        }
+    </script>
+    $(endif)
+
+    <div class="container">
+        <div class="login-box">
+            <img src="img/logo.svg" alt="Logo" class="logo">
+
+            <p class="info $(if error)alert$(endif)">
+                $(if error == "")Palun logi sisse, et kasutada interneti leviala teenust. Konto saamiseks võtke ühendust administraatoriga.<br>
+                $(if trial == 'yes') Saadaval on tasuta prooviperiood, 
+                <a href="$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)">vajuta siia</a>.$(endif)
+                $(endif)
+                $(if error)$(error)$(endif)
+            </p>
+
+            <form name="login" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
+                <input type="hidden" name="dst" value="$(link-orig)">
+                <input type="hidden" name="popup" value="true">
+
+                <div class="input-container">
+                    <img class="input-icon" src="img/user.svg" alt="Kasutajanimi">
+                    <input name="username" type="text" value="$(username)" placeholder="Kasutajanimi" required>
+                </div>
+
+                <div class="input-container">
+                    <img class="input-icon" src="img/password.svg" alt="Parool">
+                    <input name="password" type="password" placeholder="Parool" required>
+                </div>
+
+                <input type="submit" value="Ühenda">
+            </form>
+
+            <p class="footer-text">Kolde PST</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
