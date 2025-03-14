@@ -16,4 +16,4 @@ A **custom user interface** for **Mikrotik Hotspot** users, designed for seamles
 1. **Clone the repository**  
    ```bash
    git clone https://github.com/nocapscripts/Mikrotik-Hotspot
-   cd mikrotik-hotspot-gui
+   cd mikrotik-hotspot
