@@ -9,12 +9,11 @@ A **custom user interface** for **Mikrotik Hotspot** users, designed for seamles
 ✅ **Responsive Design** – Fully optimized for mobile and desktop views.  
 ✅ **Modern UI** – Stylish, user-friendly interface with animations.  
 
-## 🎨 UI Preview  
-![Mikrotik Hotspot GUI](https://via.placeholder.com/800x400.png?text=GUI+Preview)  
+
 
 ## 🚀 Installation & Setup  
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/your-repo/mikrotik-hotspot-gui.git
+   git clone https://github.com/nocapscripts/Mikrotik-Hotspot
    cd mikrotik-hotspot-gui
